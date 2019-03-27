@@ -29,6 +29,7 @@ class Board {
   }
   viewGrid() {
     // add our column numbers
+    
     let string = "  0 1 2 3 4 5 6 7\n";
     for (let row = 0; row < 8; row++) {
       // we start with our row number in our array
@@ -38,7 +39,8 @@ class Board {
         // if the location is "truthy" (contains a checker piece, in this case)
         if (this.grid[row][column]) {
           // push the symbol of the check in that location into the array
-          rowOfCheckers.push(this.grid[row][column].symbol);
+          // removed .symbol
+          rowOfCheckers.push(this.grid[row][column]);
         } else {
           // just push in a blank space
           rowOfCheckers.push(' ');
@@ -50,11 +52,28 @@ class Board {
       string += "\n";
     }
     console.log(string);
+    
   }
-
-  // Your code here
+      // Your code here
+    StartingGrid(){
+      for(let i = 0; i < 3; i++) {
+        for(let j = 0; j < 8; j++){
+          if((i+j)%2 === 0){
+            this.grid[i][j] = "b";
+          }
+         }
+      }
+      for(let i = 5; i < 8; i++) {
+        for(let j = 0; j < 8; j++){
+          if((i+j)%2 === 1){
+            this.grid[i][j] = "r";
+          }
+         }
+      }
+      console.log(this.grid);
+    }
+      
 }
-
 class Game {
   constructor() {
     this.board = new Board;
@@ -65,6 +84,7 @@ class Game {
 }
 
 function getPrompt() {
+  game.board.StartingGrid();
   game.board.viewGrid();
   rl.question('which piece?: ', (whichPiece) => {
     rl.question('to where?: ', (toWhere) => {
@@ -109,3 +129,4 @@ if (typeof describe === 'function') {
 } else {
   getPrompt();
 }
+
