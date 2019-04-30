@@ -8,13 +8,21 @@ const rl = readline.createInterface({
 });
 
 
-function Checker() {
+class Checker {
   // Your code here
+  constructor(color) {
+    if(color === "red") {
+      this.symbol = 'R';
+    } else {
+        this.symbol = 'B';
+    }
+  }
 }
 
 class Board {
   constructor() {
     this.grid = []
+    this.checkers = []
   }
   // method that creates an 8x8 array, filled with null values
   createGrid() {
@@ -56,21 +64,29 @@ class Board {
   }
       // Your code here
     StartingGrid(){
+      // created a for-loop to place black checker piece
       for(let i = 0; i < 3; i++) {
         for(let j = 0; j < 8; j++){
           if((i+j)%2 === 0){
+            // this.grid[i][j] = "b";
+            let blackChecker = new Checker('black');
+            this.checkers.push(blackChecker);
             this.grid[i][j] = "b";
           }
          }
       }
+      // created a for-loop to place red checker piece
       for(let i = 5; i < 8; i++) {
         for(let j = 0; j < 8; j++){
-          if((i+j)%2 === 1){
+          if((i+j)%2 === 0){
+            // this.grid[i][j] = "r";
+            let redChecker = new Checker("red");
+            this.checkers.push(redChecker);
             this.grid[i][j] = "r";
           }
          }
       }
-      console.log(this.grid);
+      console.log(this.checkers);
     }
       
 }
@@ -79,7 +95,9 @@ class Game {
     this.board = new Board;
   }
   start() {
+    
     this.board.createGrid();
+    this.board.StartingGrid();
   }
 }
 
