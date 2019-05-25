@@ -6,10 +6,11 @@ const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
+// assigns empty multi-dimensional arrays as cells in the grid
 let board = [[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]];
-
+// variable for active player
 let playerTurn = "X";
-
+// prints board into the terminal
 function printBoard() {
   console.log("   0  1  2");
   console.log("0 " + board[0].join(" | "));
@@ -20,32 +21,73 @@ function printBoard() {
 }
 
 function horizontalWin() {
-    // Your code here
-    if (
-    (board[0][0] === playerTurn && board[0][1] === playerTurn && board[0][2] === playerTurn) ||
-    (board[1][0] === playerTurn && board[1][1] === playerTurn && board[1][2] === playerTurn) ||
-    (board[2][0] === playerTurn && board[2][1] === playerTurn && board[2][2] === playerTurn)
-    )
+  // these are all the possible winning combinations for horizontal wins
+  if (
+    (board[0][0] === playerTurn &&
+      board[0][1] === playerTurn &&
+      board[0][2] === playerTurn) ||
+    (board[1][0] === playerTurn &&
+      board[1][1] === playerTurn &&
+      board[1][2] === playerTurn) ||
+    (board[2][0] === playerTurn &&
+      board[2][1] === playerTurn &&
+      board[2][2] === playerTurn)
+  ) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function verticalWin() {
-  // Your code here
-    if ( 
-      (board[0][0] === playerTurn && board[1][0] === playerTurn && board[2][0] === playerTurn) ||
-      (board[0][1] === playerTurn && board[1][1] === playerTurn && board[2][1] === playerTurn) ||
-      (board[0][2] === playerTurn && board[1][2] === playerTurn && board[2][2] === playerTurn))
+  // these are all the possible winning combinations for vertical wins
+  if (
+    (board[0][0] === playerTurn &&
+      board[1][0] === playerTurn &&
+      board[2][0] === playerTurn) ||
+    (board[0][1] === playerTurn &&
+      board[1][1] === playerTurn &&
+      board[2][1] === playerTurn) ||
+    (board[0][2] === playerTurn &&
+      board[1][2] === playerTurn &&
+      board[2][2] === playerTurn)
+  ) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function diagonalWin() {
-  // Your code here
+  // these are all the possible winning combinations for diagonal wins
+  if (
+    (board[2][0] === playerTurn &&
+      board[1][1] === playerTurn &&
+      board[0][2] === playerTurn) ||
+    (board[0][0] === playerTurn &&
+      board[1][1] === playerTurn &&
+      board[2][2] === playerTurn)
+  ) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
-function checkForWin() {
-
-  // Your code here
+function checkForWin(row, column) {
+  // function checks for all winning possibilities
+  if (
+    horizontalWin(row, column) ||
+    verticalWin(row, column) ||
+    diagonalWin(row, column)) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function validMove(row, column) {
+  // allows the player to place piece only where a valid spot is open/allowed
   if (board[row][column] === " ") {
     return true;
   } else {
@@ -54,9 +96,10 @@ function validMove(row, column) {
 }
 
 function inputControl(row, column) {
+  // only allows player to place piece within the board and not outside of that board
   if (
-    (row === 0 || row === 1 || row === 2) &&
-    (column === 0 || column === 1 || column === 2)
+    (row === "0" || row === "1" || row === "2") &&
+    (column === "0" || column === "1" || column === "2")
   ) {
     return true;
   } else {
@@ -64,39 +107,34 @@ function inputControl(row, column) {
   }
 }
 function changePlayer() {
-  playerTurn === "X" ? (playerTurn = "O") : (playerTurn = "X");
+  // allows switching of players from 'X' to 'O'
+  playerTurn === "X" ? playerTurn = "O" : playerTurn = "X";
 }
 
-function movePlayer(row, column) {
+function placePieces(row, column) {
+  // marks pieces on board
   board[row][column] = playerTurn;
 }
-
+// my ticTacToe function
 function ticTacToe(row, column) {
   if (inputControl(row, column)) {
+  
     if (validMove(row, column)) {
-      movePlayer(row, column);
-      if(checkForWin()){
-        console.log("player" playerTurn + "Wins");
+      
+      placePieces(row, column);
+      changePlayer(row, column);
+      
+      if (checkForWin(row, column)) {
+        console.log("player", playerTurn + "Wins");
       } else {
-        changePlayer();
-        getPrompt()
+        getPrompt();
       }
-
     } else {
-      console.log("Spots taken")
+      console.log("Spots taken");
     }
   } else {
     console.log("invalid move");
   }
-  inputControl(row, column);
-  validMove(row, column);
-  movePlayer(row, column);
-  changePlayer();
-}
-
-function placeBoard(row, column) {
-  // creates a placement on the board
-  board[row][column] = playerTurn;
 }
 
 function getPrompt() {
@@ -115,20 +153,24 @@ function getPrompt() {
 if (typeof describe === "function") {
   describe("#ticTacToe()", () => {
     it("should place mark on the board", () => {
-      ticTacToe(1, 1);
-      assert.deepEqual(board, [
+      ticTacToe(1, 1); 
+      setTimeout(function() {
+        assert.deepEqual(board, [
         [" ", " ", " "],
         [" ", "X", " "],
         [" ", " ", " "]
-      ]);
+      ])
+    }, 3000);
     });
     it("should alternate between players", () => {
       ticTacToe(0, 0);
-      assert.deepEqual(board, [
+      setTimeout(function() {
+        assert.deepEqual(board, [
         ["O", " ", " "],
         [" ", "X", " "],
         [" ", " ", " "]
       ]);
+    }, 3000);
     });
     it("should check for vertical wins", () => {
       board = [[" ", "X", " "], [" ", "X", " "], [" ", "X", " "]];
