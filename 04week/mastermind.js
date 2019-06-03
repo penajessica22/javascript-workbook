@@ -53,8 +53,8 @@ function generateHint(guess) {
 
 }
 function guessHint(guess) {
-  let hint = generateHint(guess);
   board.push(hint);
+  console.log(hint);
 }
 
 function mastermind(guess) {
