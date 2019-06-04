@@ -54,7 +54,7 @@ function generateHint(guess) {
 }
 function guessHint(guess) {
   board.push(hint);
-  console.log(hint);
+  // console.log(hint);
 }
 
 function mastermind(guess) {
