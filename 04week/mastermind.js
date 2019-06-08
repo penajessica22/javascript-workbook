@@ -64,7 +64,7 @@ function mastermind(guess) {
     generateHint(guess);
   } 
   else if(solution === guess) {
-    console.log("you guessed it!");
+    console.log('You guessed it!');
   } 
   else if (board.length === 10){
     console.log('Ran out of Guesses');
