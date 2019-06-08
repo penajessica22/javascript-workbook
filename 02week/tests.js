@@ -1,6 +1,4 @@
-// Write new tests for Rock Paper Scissors in the javascript-workbook 02week/test.js:
-// Test for all possible scenarios in which "Hand one wins!".
-// Test for all possible scenarios in which "Hand two wins!".
+
 // Test to make sure user must input a valid entry (e.g. 'rock', 'paper', or 'scissors')
 
 'use strict';
@@ -12,36 +10,40 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+
 function rockPaperScissors(hand1, hand2) {
+  hand1 = hand1.toLowerCase().trim();
+  hand2 = hand2.toLowerCase().trim();
   if(hand1 === 'rock' && hand2 === 'paper'){
-    return 'hand2 wins';
+    return "Hand two wins!";
   }
   else if(hand1 === 'rock' && hand2 === 'scissors'){
-    return 'hand1 wins';
+    return "Hand one wins!";
   }
   else if(hand1 === 'rock' && hand2 === 'rock') {
-    return'its a tie';
+    return "It's a tie!";
   }
   else if(hand1 === 'paper' && hand2 === 'rock'){
-    return 'hand1 wins';
+    return "Hand one wins!";
   }
   else if(hand1 === 'paper' && hand2 === 'scissors'){
-    return'hand2 wins';
+    return 'Hand two wins!';
   }
   else if(hand1 === 'paper' && hand2 === 'paper'){
-    return 'its a tie';
+    return "It's a tie!";
   }
-  else if(hand1 === scissors && hand2 === paper){
-    return 'hand1 wins';
+  else if(hand1 === 'scissors' && hand2 === 'paper'){
+    return "Hand one wins!";
   }
-  else if(hand1 === scissors && hand2 === rock ){
-    return 'hand2 wins';
+  else if(hand1 === 'scissors' && hand2 === 'rock' ){
+    return 'Hand two wins!';
   }
-  else{
-    return 'its a tie';
+  else if(hand1 === 'scissors' && hand2 === 'scissors' ){
+    return "It's a tie!";
   }
-
 }
+
+
 
 function getPrompt() {
   rl.question('hand1: ', (hand1) => {
@@ -81,10 +83,10 @@ if (typeof describe === 'function') {
         assert.equal(rockPaperScissors('paper', 'rock'), "Hand one wins!");
         assert.equal(rockPaperScissors('scissors', 'paper'), "Hand one wins!");
     }) 
-    it('Test for all possible scenarios in which "Hand two wins!"' , () => {
-        assert.equal(rockPaperScissors('rock', 'paper'), "Hand two wins!");
-        assert.equal(rockPaperScissors('paper', 'scissors'), "Hand two wins!");
-        assert.equal(rockPaperScissors('scissors', 'rock'), "Hand two wins!");
+    it('Test for all possible scenarios in which "Hand two wins!" ', () => {
+        assert.equal(rockPaperScissors('rock', 'paper'), 'Hand two wins!');
+        assert.equal(rockPaperScissors('paper', 'scissors'), 'Hand two wins!');
+        assert.equal(rockPaperScissors('scissors', 'rock'), 'Hand two wins!');
     }) 
   });
 } else {
@@ -92,3 +94,5 @@ if (typeof describe === 'function') {
   getPrompt();
 
 }
+
+// Test to make sure user must input a valid entry (e.g. 'rock', 'paper', or 'scissors')
