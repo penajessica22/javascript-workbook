@@ -7,24 +7,24 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-
+// creates an multi-dimensional array that creates stacks
 let stacks = {
   a: [4, 3, 2, 1],
   b: [],
   c: []
 };
-
+// prints stacks in terminal
 function printStacks() {
   console.log("a: " + stacks.a);
   console.log("b: " + stacks.b);
   console.log("c: " + stacks.c);
 }
-
+// function begins to movie piece within the stacks
 function movePiece(begin, end) { 
  stacks[end].push(stacks[begin].pop())
 
 }
-
+// this function decides if the moving of the piece is allowed
 function isLegal(start, end) {
  
   let index = stacks[start].length - 1
@@ -34,23 +34,8 @@ function isLegal(start, end) {
   } else {
     return false
   }
-  // Your code here
-  // if((startStack === 'a'|| startStack === 'b' || startStack === 'c') && (endStack === 'a'||endStack === 'b' || endStack === 'c')
-  // ){
-
-  //   if(stacks[startStack][stacks[startStack].length -1] > stacks[endStack][stacks[endStack].length - 1]){
-  //     return true
-  //   } else {
-  //     return false
-  //   } }
-  //   else   {
-  //     console.log( 'incorrect input')
-  //     return false
-    
-  // }
-
 }
-
+// this function checks for a win within the stacks to verify if the pieces have moved from one side to the other
 function checkForWin() {
   // Your code here
   if(stacks["b"].length === 4 || stacks['c'].length === 4){
