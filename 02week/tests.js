@@ -1,6 +1,3 @@
-
-// Test to make sure user must input a valid entry (e.g. 'rock', 'paper', or 'scissors')
-
 'use strict';
 
 const assert = require('assert');
